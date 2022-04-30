@@ -1,0 +1,17 @@
+.result-container {
+    min-width: 600px;
+    max-width: 600px;
+    min-height: 400px;
+    max-height: 600px;
+    color: #fff;
+
+    background-image: url("https://images.alphacoders.com/115/thumb-1920-1151417.jpg"); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  height: 400px; /* You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+.buttons {
+    margin-top: 30px;
+}

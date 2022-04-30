@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Content from "./Content/Content";
 import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
+import Result from "./Micro/Result";
 
 import "./game.css";
 import { AllLevelsCards } from "../data/data";
@@ -14,23 +15,37 @@ export default function Game() {
   const [choiceTwo, SetChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
   const [currentLevel, setCurrentLevel] = useState(0);
-
-  //get the level
-  const level = AllLevelsCards[currentLevel];
-  const CardsImages = level?.data;
+  const [showNextLevelContent, setShowNextLevelContent] = useState(true);
+  const [isWinner, setIsWinner] = useState(true);
+  const [timer, setTimer] = useState(-1);
+  const [refresh, setRefresh] = useState(false);
+  const [isLoading, setIsloading] = useState(true);
 
   //Shuffle Cards
   const ShuffleCards = () => {
+    const level = AllLevelsCards[currentLevel];
+    setTimer(level?.duration * 60);
+    const CardsImages = level?.data;
+
     const shuffledCards = [...CardsImages, ...CardsImages]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
 
     setCards(shuffledCards);
+    initData(level);
+  };
+  //handle Choice
+
+  const initData = (level) => {
     SetChoiceOne(null);
     SetChoiceTwo(null);
     setTurns(0);
+    setTimer(level.duration * 60);
+    setDisabled(false);
+    setShowNextLevelContent(false);
+    setRefresh(true);
+    setIsloading(false);
   };
-  //handle Choice
 
   const HandleChoice = (card) => {
     choiceOne ? SetChoiceTwo(card) : SetChoiceOne(card);
@@ -68,18 +83,48 @@ export default function Game() {
 
   useEffect(() => {
     ShuffleCards();
-  }, []);
+  }, [currentLevel]);
 
-  return (
+  // on Game Over
+
+  const onGameOver = (result) => {
+    //if result is true than show modal and calculate Score
+    console.log(result);
+    setDisabled(true);
+    setIsWinner(result);
+    setShowNextLevelContent(true);
+    setRefresh(false);
+  };
+
+  const onNext = () => {
+    console.log("Next Level");
+    setCurrentLevel((prevLevel) => prevLevel + 1);
+  };
+
+  return isLoading ? (
+    <></>
+  ) : (
     <div>
-      <Header onClick={ShuffleCards} level={level} turns={turns} />
-      <Content
-        HandleChoice={HandleChoice}
-        cards={cards}
-        choiceOne={choiceOne}
-        choiceTwo={choiceTwo}
-        disabled={disabled}
+      <Header
+        onClick={ShuffleCards}
+        level={AllLevelsCards[currentLevel]}
+        turns={turns}
+        timer={timer}
+        onGameOver={onGameOver}
       />
+      {showNextLevelContent ? (
+        <Result status={isWinner} onNext={onNext} />
+      ) : (
+        <Content
+          HandleChoice={HandleChoice}
+          cards={cards}
+          choiceOne={choiceOne}
+          choiceTwo={choiceTwo}
+          disabled={disabled}
+          onGameOver={onGameOver}
+        />
+      )}
+
       <Footer />
     </div>
   );
