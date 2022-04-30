@@ -1,6 +1,6 @@
 import React from "react";
-import './content.css'
-import SingleCard from "./SingleCard";
+import './Content.css'
+import SingleCard from "../Micro/SingleCard";
 export default function Content({ cards, HandleChoice, choiceOne, choiceTwo,disabled }) {
 
     return (<div className="card-grid">

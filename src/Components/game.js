@@ -1,94 +1,86 @@
 import React, { useEffect, useState } from "react";
-import Content from "./content";
-import Footer from "./Footer";
-import './game.css'
 
-import Header from './Header'
+import Content from "./Content/Content";
+import Footer from "./Footer/Footer";
+import Header from "./Header/Header";
 
-const CardsImages = [
-    { src: "/img/helmet-1.png", matched: false },
-    { src: "/img/potion-1.png", matched: false },
-    { src: "/img/ring-1.png", matched: false },
-    { src: "/img/scroll-1.png", matched: false },
-    { src: "/img/shield-1.png", matched: false },
-    { src: "/img/sword-1.png", matched: false }
+import "./game.css";
+import { AllLevelsCards } from "../data/data";
 
-]
 export default function Game() {
+  const [cards, setCards] = useState([]);
+  const [turns, setTurns] = useState(0);
+  const [choiceOne, SetChoiceOne] = useState(null);
+  const [choiceTwo, SetChoiceTwo] = useState(null);
+  const [disabled, setDisabled] = useState(false);
+  const [currentLevel, setCurrentLevel] = useState(0);
 
-    const [cards, setCards] = useState([])
-    const [turns, setTurns] = useState(0)
-    const [choiceOne, SetChoiceOne] = useState(null)
-    const [choiceTwo, SetChoiceTwo] = useState(null)
-    const [disabled, setDisabled] = useState(false)
+  //get the level
+  const level = AllLevelsCards[currentLevel];
+  const CardsImages = level?.data;
 
+  //Shuffle Cards
+  const ShuffleCards = () => {
+    const shuffledCards = [...CardsImages, ...CardsImages]
+      .sort(() => Math.random() - 0.5)
+      .map((card) => ({ ...card, id: Math.random() }));
 
+    setCards(shuffledCards);
+    SetChoiceOne(null);
+    SetChoiceTwo(null);
+    setTurns(0);
+  };
+  //handle Choice
 
-    //Shuffle Cards
-    const ShuffleCards = () => {
-        const shuffledCards = [...CardsImages, ...CardsImages]
-            .sort(() => Math.random() - 0.5)
-            .map((card) => ({ ...card, id: Math.random() }))
+  const HandleChoice = (card) => {
+    choiceOne ? SetChoiceTwo(card) : SetChoiceOne(card);
+  };
 
-        setCards(shuffledCards)
-        SetChoiceOne(null)
-        SetChoiceTwo(null)
-        setTurns(0)
+  // Reset Turns
 
+  const ResetTurns = () => {
+    SetChoiceOne(null);
+    SetChoiceTwo(null);
+    setTurns((prevTurns) => prevTurns + 1);
+    setDisabled(false);
+  };
+
+  // use Effect Hook
+
+  useEffect(() => {
+    if (choiceOne && choiceTwo) {
+      setDisabled(true);
+      if (choiceOne.src === choiceTwo.src) {
+        setCards((prevCards) => {
+          return prevCards.map((card) => {
+            if (card.src === choiceOne.src) return { ...card, matched: true };
+            else return card;
+          });
+        });
+        ResetTurns();
+      } else {
+        setTimeout(() => ResetTurns(), 1000);
+      }
     }
-    //handle Choice
+  }, [choiceOne, choiceTwo]);
 
-    const HandleChoice = (card) => {
-        choiceOne ? SetChoiceTwo(card) : SetChoiceOne(card)
-    }
+  //Start The Game Automatically
 
-    // Reset Turns
+  useEffect(() => {
+    ShuffleCards();
+  }, []);
 
-    const ResetTurns = () => {
-        SetChoiceOne(null)
-        SetChoiceTwo(null)
-        setTurns(prevTurns => prevTurns + 1)
-        setDisabled(false)
-    }
-
-    // use Effect Hook
-
-    useEffect(() => {
-        if (choiceOne && choiceTwo) {
-            setDisabled(true)
-            if (choiceOne.src === choiceTwo.src) {
-                setCards(prevCards => {
-                    return prevCards.map(card => {
-                        if (card.src === choiceOne.src) return { ...card, matched: true }
-                        else return card
-                    })
-                })
-                ResetTurns()
-            } else {
-                setTimeout(() => ResetTurns(), 1000)
-            }
-
-
-
-        }
-
-
-    }, [choiceOne, choiceTwo])
-
-    //Start The Game Automatically
-
-    useEffect(() => {
-        ShuffleCards()
-    }, [])
-
-    return (<div>
-        <Header onClick={ShuffleCards} />
-        <Content HandleChoice={HandleChoice}
-            cards={cards}
-            choiceOne={choiceOne}
-            choiceTwo={choiceTwo}
-            disabled={disabled}
-        />
-        <Footer turns={turns} />
-    </div>)
+  return (
+    <div>
+      <Header onClick={ShuffleCards} level={level} turns={turns} />
+      <Content
+        HandleChoice={HandleChoice}
+        cards={cards}
+        choiceOne={choiceOne}
+        choiceTwo={choiceTwo}
+        disabled={disabled}
+      />
+      <Footer />
+    </div>
+  );
 }

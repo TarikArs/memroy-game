@@ -1,0 +1,17 @@
+.header-container {
+    border-bottom: 1px solid #fff;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+}
+.header-container > .bordered-icon {
+    cursor: pointer;
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 5px;
+   
+    width: 30px;
+    height: 30px;
+}
+.bordered-icon:hover {
+    background: red;
+}

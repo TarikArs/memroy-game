@@ -1,0 +1,7 @@
+.footer-container {
+    padding-top: 20px;
+    border-top: 1px solid #fff;
+}
+.footer-container > img {
+    margin-left: 5px;
+}
