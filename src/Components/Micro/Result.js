@@ -1,13 +1,13 @@
 import { Button } from "react-bootstrap";
 import "./Result.css";
-export default function Result({ status, onRetry, onNext }) {
+export default function Result({ status, cardsLength, onRetry, onNext }) {
   return (
     <div className="result-container d-flex justify-content-center align-items-center flex-column">
       <div>
         <h3>{status ? "You win" : "You Lose"} </h3>
       </div>
       <div className="buttons">
-        {status && (
+        {status && cardsLength > 0 && (
           <Button variant="primary" onClick={onNext}>
             Next Level
           </Button>

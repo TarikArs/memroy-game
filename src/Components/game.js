@@ -97,7 +97,6 @@ export default function Game() {
   };
 
   const onNext = () => {
-    console.log("Next Level");
     setCurrentLevel((prevLevel) => prevLevel + 1);
   };
 
@@ -113,7 +112,12 @@ export default function Game() {
         onGameOver={onGameOver}
       />
       {showNextLevelContent ? (
-        <Result status={isWinner} onNext={onNext} />
+        <Result
+          status={isWinner}
+          onNext={onNext}
+          onRetry={ShuffleCards}
+          cardsLength={AllLevelsCards.length - (currentLevel + 1)}
+        />
       ) : (
         <Content
           HandleChoice={HandleChoice}

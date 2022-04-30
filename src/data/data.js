@@ -1,7 +1,7 @@
 export const AllLevelsCards = [
   {
     label: "Level 1",
-    duration: 10,
+    duration: 3,
     maxTurns: 10,
     data: [
       { src: "/img/level1/helmet-1.png", matched: false },
@@ -23,8 +23,8 @@ export const AllLevelsCards = [
       { src: "/img/level2/handball.png", matched: false },
       { src: "/img/level2/soccer-ball.png", matched: false },
       { src: "/img/level2/tennis-ball.png", matched: false },
-      { src: "/img/level2/tennis-ball.png", matched: false },
-      { src: "/img/level2/tennis-ball.png", matched: false },
+      { src: "/img/level2/bowling-ball.png", matched: false },
+      { src: "/img/level2/sports.png", matched: false },
     ],
   },
 ];
