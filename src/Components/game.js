@@ -7,6 +7,7 @@ import Result from "./Micro/Result";
 
 import "./game.css";
 import { AllLevelsCards } from "../data/data";
+import Stepper from "./Stepper/Stepper";
 
 export default function Game() {
   const [cards, setCards] = useState([]);
@@ -14,7 +15,7 @@ export default function Game() {
   const [choiceOne, SetChoiceOne] = useState(null);
   const [choiceTwo, SetChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
-  const [currentLevel, setCurrentLevel] = useState(1);
+  const [currentLevel, setCurrentLevel] = useState(0);
   const [showNextLevelContent, setShowNextLevelContent] = useState(false);
   const [isWinner, setIsWinner] = useState(true);
   const [timer, setTimer] = useState(-1);
@@ -40,7 +41,7 @@ export default function Game() {
     SetChoiceOne(null);
     SetChoiceTwo(null);
     setTurns(0);
-   // setTimer(level.duration * 60);
+    setTimer(level.duration * 60);
     setDisabled(false);
     setShowNextLevelContent(false);
     setRefresh(true);
@@ -92,7 +93,7 @@ export default function Game() {
     console.log(result);
     setDisabled(true);
     setIsWinner(result);
-    setShowNextLevelContent(false);
+    setShowNextLevelContent(true);
     setRefresh(false);
   };
 
@@ -104,32 +105,33 @@ export default function Game() {
     <></>
   ) : (
     <div>
-      <Header
-        onClick={ShuffleCards}
-        level={AllLevelsCards[currentLevel]}
-        turns={turns}
-        timer={timer}
-        onGameOver={onGameOver}
-      />
-      {showNextLevelContent ? (
-        <Result
-          status={isWinner}
-          onNext={onNext}
-          onRetry={ShuffleCards}
-          cardsLength={AllLevelsCards.length - (currentLevel + 1)}
-        />
-      ) : (
-        <Content
-          HandleChoice={HandleChoice}
-          cards={cards}
-          choiceOne={choiceOne}
-          choiceTwo={choiceTwo}
-          disabled={disabled}
+      {/* <Stepper /> */}
+      <div className="game-body">
+        <Header
+          onClick={ShuffleCards}
+          level={AllLevelsCards[currentLevel]}
+          turns={turns}
+          timer={timer}
           onGameOver={onGameOver}
         />
-      )}
-
-      <Footer />
+        {showNextLevelContent ? (
+          <Result
+            status={isWinner}
+            onNext={onNext}
+            onRetry={ShuffleCards}
+            cardsLength={AllLevelsCards.length - (currentLevel + 1)}
+          />
+        ) : (
+          <Content
+            HandleChoice={HandleChoice}
+            cards={cards}
+            choiceOne={choiceOne}
+            choiceTwo={choiceTwo}
+            disabled={disabled}
+            onGameOver={onGameOver}
+          />
+        )}
+      </div>
     </div>
   );
 }

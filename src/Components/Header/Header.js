@@ -69,9 +69,7 @@ export default function Header({
         <FontAwesomeIcon icon={faHourglass} /> {minutes + ":" + seconds}
       </div>
       <div> Turns : {turns + "/" + level.maxTurns}</div>
-      <div>
-        <FontAwesomeIcon icon={faTrophy} /> 34%
-      </div>
+      
       <div className="bordered-icon d-flex justify-content-center">
         <FontAwesomeIcon icon={faUser} />
       </div>

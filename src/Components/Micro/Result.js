@@ -4,7 +4,7 @@ export default function Result({ status, cardsLength, onRetry, onNext }) {
   return (
     <div className="result-container d-flex justify-content-center align-items-center flex-column">
       <div>
-        <h3>{status ? "You win" : "You Lose"} </h3>
+        <h3>{status ? "Congrats ! You win" : "Sorry ! You Lose"} </h3>
       </div>
       <div className="buttons">
         {status && cardsLength > 0 && (
