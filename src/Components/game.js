@@ -14,8 +14,8 @@ export default function Game() {
   const [choiceOne, SetChoiceOne] = useState(null);
   const [choiceTwo, SetChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
-  const [currentLevel, setCurrentLevel] = useState(0);
-  const [showNextLevelContent, setShowNextLevelContent] = useState(true);
+  const [currentLevel, setCurrentLevel] = useState(1);
+  const [showNextLevelContent, setShowNextLevelContent] = useState(false);
   const [isWinner, setIsWinner] = useState(true);
   const [timer, setTimer] = useState(-1);
   const [refresh, setRefresh] = useState(false);
@@ -40,7 +40,7 @@ export default function Game() {
     SetChoiceOne(null);
     SetChoiceTwo(null);
     setTurns(0);
-    setTimer(level.duration * 60);
+   // setTimer(level.duration * 60);
     setDisabled(false);
     setShowNextLevelContent(false);
     setRefresh(true);
@@ -92,7 +92,7 @@ export default function Game() {
     console.log(result);
     setDisabled(true);
     setIsWinner(result);
-    setShowNextLevelContent(true);
+    setShowNextLevelContent(false);
     setRefresh(false);
   };
 
