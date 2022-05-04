@@ -1,7 +1,7 @@
 export const AllLevelsCards = [
   {
     label: "Level 1",
-    duration: 1,
+    duration: 10,
     maxTurns: 100,
     data: [
       { src: "/img/level1/apple.png", matched: false },
