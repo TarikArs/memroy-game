@@ -105,7 +105,7 @@ export default function Game() {
     <></>
   ) : (
     <div>
-      {/* <Stepper /> */}
+      
       <div className="game-body">
         <Header
           onClick={ShuffleCards}

@@ -3,12 +3,18 @@ import "./Result.css";
 export default function Result({ status, cardsLength, onRetry, onNext }) {
   return (
     <div className="result-container d-flex justify-content-center align-items-center flex-column">
-      <div>
-        <h3>{status ? "Congrats ! You win" : "Sorry ! You Lose"} </h3>
-      </div>
+      {
+        status ? <div className="d-flex justify-content-center align-items-center flex-column">
+          <img src="/img/happy.png" alt="sad" width="50" />
+          <h3>Congrats ! You win</h3>
+        </div> : <div className="d-flex justify-content-center align-items-center flex-column">
+          <img src="/img/sad.png" alt="sad" width="50" />
+          <h3>Sorry ! Maybe next time</h3>
+        </div>
+      }
       <div className="buttons">
         {status && cardsLength > 0 && (
-          <Button variant="primary" onClick={onNext}>
+          <Button variant="primary" className="nextLevel" onClick={onNext}>
             Next Level
           </Button>
         )}
@@ -16,6 +22,8 @@ export default function Result({ status, cardsLength, onRetry, onNext }) {
           Retry
         </Button>
       </div>
+
+   
     </div>
   );
 }
