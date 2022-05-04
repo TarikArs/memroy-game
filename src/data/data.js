@@ -4,12 +4,12 @@ export const AllLevelsCards = [
     duration: 1,
     maxTurns: 10,
     data: [
-      { src: "/img/level1/helmet-1.png", matched: false },
-      { src: "/img/level1/potion-1.png", matched: false },
-      { src: "/img/level1/ring-1.png", matched: false },
-      { src: "/img/level1/scroll-1.png", matched: false },
-      { src: "/img/level1/shield-1.png", matched: false },
-      { src: "/img/level1/sword-1.png", matched: false },
+      { src: "/img/level1/apple.png", matched: false },
+      { src: "/img/level1/avocado.png", matched: false },
+      { src: "/img/level1/bananas.png", matched: false },
+      { src: "/img/level1/cantaloupe.png", matched: false },
+      { src: "/img/level1/pear.png", matched: false },
+      { src: "/img/level1/pineapple.png", matched: false },
     ],
   },
   {
