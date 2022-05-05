@@ -1,5 +1,7 @@
 ### Screenshots
-<img src='/public/img/icon1.png' />
+<img src='https://github.com/TarikArs/memroy-game/blob/master/public/img/icons/cap1.png' width="400" />
+<img src='https://github.com/TarikArs/memroy-game/blob/master/public/img/icons/cap2.png' width="400" />
+<img src='https://github.com/TarikArs/memroy-game/blob/master/public/img/icons/cap3.png' width="400" />
 
 
 # Getting Started with Create React App
